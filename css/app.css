@@ -1,0 +1,141 @@
+div { 
+  box-sizing: border-box;
+}
+
+body {
+  margin: 1em;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Atomic utilities */
+.display-none { display: none; }
+.relative { position: relative; }
+.absolute { position: absolute; }
+.inline-block { display: inline-block; }
+.m0 { margin: 0; }
+.m2 { margin: 16px; }
+.mt2 { margin-top: 16px;}
+.top-0 { top: 0; }
+.right-0 { right: 0; }
+.right { float: right; }
+.pointer { cursor: pointer; }
+
+/* Planner Table */
+td {
+  border: 1px solid #aaa
+}
+
+tbody {
+  height: 100%;
+}
+
+th {
+  width: 14.28%;
+  text-align: left;
+}
+
+th#time { 
+  width: auto; 
+}
+
+#time-column {
+  text-align: center;
+  font-size: 12px;
+}
+
+.day-number { 
+  color: #6c9ff0;
+}
+
+#time-column > div:nth-child(1) > div { 
+  display: none; 
+}
+
+#time-column div { 
+  width: 32px; 
+}
+
+.hour-wrapper {
+  position: relative;
+  height: 64px;
+}
+
+.hour {
+  position: absolute;
+  top: -10px;
+}
+
+#time-column {
+  background-color: #6c9ff0;
+  color: white;
+}
+
+
+.hour-block {
+  height: 64px;
+  border-bottom: 1px solid #aaa;
+  position: relative;
+  cursor: pointer;
+}
+
+
+/* Event Form */
+#event-ctx-dialog {
+  position: absolute;
+  background-color: white;
+  display: none;
+  padding: 1em;
+  border: 1px solid #aaa;
+  z-index: 2;
+}
+
+.form-group {
+  margin: 4px 0px;
+}
+
+.form-group label {
+  font-size: 12px;
+}
+
+/* Buttons */
+.btn {
+  padding: 4px 8px;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-save {
+  background-color: green;
+  color: white;
+}
+
+.btn-danger {
+  background-color: red;
+  color: white;
+}
+
+/* Event block */
+.event {
+  background-color: #99c0ff;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  z-index: 1;
+  border: 1px solid #eee;
+  overflow: hidden;
+  word-wrap: break-word;
+}
+
+.event:hover {
+  cursor: pointer;
+  background-color: #81aff9;
+}
+
+@media screen and (max-width: 450px) {
+  header h1 {
+    font-size: 1.5em;
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "name": "weekly-planner",
+  "version": "0.0.1",
+  "description": "A weekly planner that allows users to manage events during the current week.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "lite-server",
+    "eslint": "eslint ./js/*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marciandmnd/weekly-planner.git"
+  },
+  "keywords": [
+    "Weekly",
+    "Planner",
+    "JavaScript"
+  ],
+  "author": "Marcian Diamond",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/marciandmnd/weekly-planner/issues"
+  },
+  "homepage": "https://github.com/marciandmnd/weekly-planner#readme",
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "lite-server": "^2.3.0"
+  }
+}
