@@ -1,5 +1,5 @@
 /** Class representing an event. */
-class Event {  // eslint-disable-line no-unused-vars 
+export default class Event {  // eslint-disable-line no-unused-vars 
   constructor(day, timeFrom, timeTo, title, id) {
     this.day = day;
     this.timeFrom = timeFrom;
@@ -51,3 +51,4 @@ class Event {  // eslint-disable-line no-unused-vars
     return (hours * 64);
   }
 }
+

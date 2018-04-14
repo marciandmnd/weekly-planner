@@ -1,3 +1,5 @@
+import Event from './Event';
+
 /** Weekly planner persistence layer leveraging localStorage */
 const store = (() => { // eslint-disable-line no-unused-vars 
   let events = [];
@@ -56,3 +58,5 @@ const store = (() => { // eslint-disable-line no-unused-vars
     clearEvents
   };
 })();
+
+export default store;

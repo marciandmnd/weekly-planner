@@ -1,9 +1,12 @@
 /*global store*/
+import Event from './Event';
+import store from './store';
 
 const weeklyPlanner = (() => { // eslint-disable-line no-unused-vars
   const DAYS = ['Sun', 'Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat'];
   
   const $ = document.querySelector.bind(document);
+
 
   // DOM elements
   const weekHeader = $('#table-head');
@@ -17,6 +20,7 @@ const weeklyPlanner = (() => { // eslint-disable-line no-unused-vars
   const titleInput = $('form #title');
   const timeFromInput = $('#time-from');
   const timeToInput = $('#time-to');
+
 
   let currentTimeFrom; // used for Firefox time input clear button work around
   let currentEvent; // Current instance of Event being interacted with
@@ -565,6 +569,7 @@ const weeklyPlanner = (() => { // eslint-disable-line no-unused-vars
 
   /**  Run application  */
   const startApp = () => {
+    console.log('starting app...');
     store.loadEvents();
     bindEventListeners();
     render();
@@ -573,3 +578,5 @@ const weeklyPlanner = (() => { // eslint-disable-line no-unused-vars
 
   return { startApp };
 })();
+
+export default weeklyPlanner;
