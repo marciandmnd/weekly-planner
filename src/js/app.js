@@ -1,12 +1,10 @@
-/*global store*/
 import Event from './Event';
 import store from './store';
 
-const weeklyPlanner = (() => { // eslint-disable-line no-unused-vars
+const weeklyPlanner = (() => {
   const DAYS = ['Sun', 'Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat'];
   
   const $ = document.querySelector.bind(document);
-
 
   // DOM elements
   const weekHeader = $('#table-head');
@@ -20,7 +18,6 @@ const weeklyPlanner = (() => { // eslint-disable-line no-unused-vars
   const titleInput = $('form #title');
   const timeFromInput = $('#time-from');
   const timeToInput = $('#time-to');
-
 
   let currentTimeFrom; // used for Firefox time input clear button work around
   let currentEvent; // Current instance of Event being interacted with
@@ -47,21 +44,14 @@ const weeklyPlanner = (() => { // eslint-disable-line no-unused-vars
     const week = dates(new Date());
 
     const theadHTML = week.map(day => (
-      `<th>
-        ${DAYS[day.getDay()]}<br/>
-        <span class="day-number">${day.getDate()}</span>
-      </th>`
+      `<th>${DAYS[day.getDay()]}<br/><span class="day-number">${day.getDate()}</span></th>`
     ));
 
     theadHTML.unshift('<th id="time"></th>');
     weekHeader.innerHTML = theadHTML.join('');
 
     const tbodyHTML = week.map(day => {
-      return `
-        <td data-day="${day.getDay()}">
-          ${tableCellHTML()}
-        </td>
-      `;
+      return `<td data-day="${day.getDay()}">${tableCellHTML()}</td>`;
     });
 
     tbodyHTML.unshift(`<td id="time-column">${renderTimeColumn()}</td>`);
@@ -95,11 +85,7 @@ const weeklyPlanner = (() => { // eslint-disable-line no-unused-vars
       time = i % 12;
       time = time ? time : 12;
 
-      const html = `
-        <div class="hour-wrapper">
-          <div class="hour">${time}${ampm}</div>
-        </div>
-      `;
+      const html = `<div class="hour-wrapper"><div class="hour">${time}${ampm}</div></div>`;
       timeColumnHTML.push(html);
     }
 
@@ -116,8 +102,6 @@ const weeklyPlanner = (() => { // eslint-disable-line no-unused-vars
     eventEditPending = true;
     currentEventEl = e.target;
     currentEvent = store.getEventById(id);
-    titleInput.value = currentEvent.title;
-
     currentTimeFrom = currentEvent.getTimeFrom(); // used for FF clear button work around
 
     setTimeFromInputValue(currentTimeFrom);
@@ -129,17 +113,13 @@ const weeklyPlanner = (() => { // eslint-disable-line no-unused-vars
    * Set event form time from input value
    * @param {string} value - time (i.e. '12:30')
    */
-  const setTimeFromInputValue = (value) => {
-    timeFromInput.value = value;
-  };
+  const setTimeFromInputValue = value => timeFromInput.value = value;
 
   /** 
    * Set event form time to input value
    * @param {string} value - time (i.e. '12:30')
    */
-  const setTimeToInputValue = (value) => {
-    timeToInput.value = value;
-  };
+  const setTimeToInputValue = value => timeToInput.value = value;
 
   /** 
    * Receives hour and minute as integer arguments and
@@ -172,6 +152,7 @@ const weeklyPlanner = (() => { // eslint-disable-line no-unused-vars
    * @param {boolean} update - show update form
    */
   const showEventDialogBox = (e, update) => {
+    titleInput.value = currentEvent.title || '';
     if(update) {
       eventCtxDialogTitle.textContent = 'Update event';
       deleteButton.style.display = 'inline-block';
@@ -189,7 +170,6 @@ const weeklyPlanner = (() => { // eslint-disable-line no-unused-vars
   /** Hide event form dialog box   */
   const hideEventDialogBox = () => {
     eventEditPending = false;
-    titleInput.value = '';
     eventCtxDialog.style.display = 'none';
   };
 
@@ -259,10 +239,10 @@ const weeklyPlanner = (() => { // eslint-disable-line no-unused-vars
    * @returns {number}
    */
   const renderPendingEvent = (e, pendingEvent) => {
-    let event = document.createElement('div');
+    const event = document.createElement('div');
     event.className = 'event pending-event';
     event.style.top = (64 * pendingEvent.getTimeFromMinute() / 60) + 'px';
-    event.style.height = getBlockHeight(pendingEvent.getTimeFrom(), pendingEvent.getTimeTo() ) + 'px';
+    event.style.height = getBlockHeight() + 'px';
     e.target.appendChild(event);
     currentEventEl = event;
     showEventDialogBox(e);
@@ -270,10 +250,11 @@ const weeklyPlanner = (() => { // eslint-disable-line no-unused-vars
 
   /** Cancel event editing and hide event form dialog box */
   const cancelEventEdit = () => {
-    const pendingEvent = document.querySelector('.pending-event');
+    const pendingEvent = $('.pending-event');
     if (pendingEvent) {
       pendingEvent.parentNode.removeChild(pendingEvent);
-    } else {
+    } 
+    else {
       const event = store.getEventById(currentEvent.id);
       if(currentEventEl.parentElement) {
         currentEventEl.parentElement.removeChild(currentEventEl);
@@ -289,9 +270,9 @@ const weeklyPlanner = (() => { // eslint-disable-line no-unused-vars
    * @param {string} timeTo - time for bottom edge of event block
    * @returns {number}
    */
-  const getBlockHeight = (timeFrom, timeTo) => {
-    const from = new Date(`2018/01/01 ${timeFrom}`);
-    const to = new Date(`2018/01/01 ${timeTo}`);
+  const getBlockHeight = () => {
+    const from = new Date(`2018/01/01 ${timeFromInput.value}`);
+    const to = new Date(`2018/01/01 ${timeToInput.value}`);
 
     const hours = (to - from)/3600000;
     return Math.floor(hours * 64);
@@ -303,9 +284,7 @@ const weeklyPlanner = (() => { // eslint-disable-line no-unused-vars
    * @param {number} hour - hour 
    * @returns {string}
    */
-  const getHourString = (hour) => {
-    return hour < 10 ? `0${hour}` : `${hour}`;
-  };
+  const getHourString = hour => hour < 10 ? `0${hour}` : `${hour}`;
 
   /** 
    * Get previous event el relative to current element
@@ -314,12 +293,12 @@ const weeklyPlanner = (() => { // eslint-disable-line no-unused-vars
    */
   const getPrevEventEl = () => {
     const day = currentEvent.day;
-    let hour = currentEvent.getTimeFromHour();
-    let prevEventEl = false;
+    const hour = currentEvent.getTimeFromHour();
+    let prevEventEl;
 
-    for(var i = hour; i >= 0; i--) {
-      let selector = `[data-day='${day}'] [data-hour='${getHourString(i)}']`;
-      let hourBlock = $(selector);
+    for(let i = hour; i >= 0; i--) {
+      const selector = `[data-day='${day}'] [data-hour='${getHourString(i)}']`;
+      const hourBlock = $(selector);
       if(hourBlock.childNodes.length > 0) {
         const childNodes = Array.from(hourBlock.childNodes);
         const prevEventElArray = childNodes.filter(event => {
@@ -333,7 +312,7 @@ const weeklyPlanner = (() => { // eslint-disable-line no-unused-vars
         if(prevEventEl) { return prevEventEl; }
       }
     }
-    return prevEventEl;
+    return false;
   };
 
   /** 
@@ -417,7 +396,7 @@ const weeklyPlanner = (() => { // eslint-disable-line no-unused-vars
     currentEventEl.parentElement.removeChild(currentEventEl);
     hourBlock.appendChild(currentEventEl);
 
-    const height = getBlockHeight(timeFromInput.value, timeToInput.value);
+    const height = getBlockHeight();
     currentEventEl.style.height = height + 'px';
     currentEventEl.style.top = (64 * minute / 60) + 'px';
   };
@@ -446,7 +425,7 @@ const weeklyPlanner = (() => { // eslint-disable-line no-unused-vars
     }
 
     // Set event styles
-    const height = getBlockHeight(timeFromInput.value, timeToInput.value);
+    const height = getBlockHeight();
     currentEventEl.style.height = height + 'px';
   };
 
@@ -467,10 +446,8 @@ const weeklyPlanner = (() => { // eslint-disable-line no-unused-vars
     // Create
     else {
       currentEvent = store.addEvent(currentEvent); // Get id
-
       // Event no longer pending, so remove pending-event class
-      const eventEl = document.querySelector('.pending-event');
-      eventEl.classList.remove('pending-event');
+      $('.pending-event').classList.remove('pending-event');
     }
 
     // Rerender Event to get data-id attribute inserted into the DOM
@@ -521,22 +498,15 @@ const weeklyPlanner = (() => { // eslint-disable-line no-unused-vars
 
     // Bind click events to dynamically inserted elements
     document.addEventListener('click', e => {
-      if (e.target && e.target.className == 'hour-block') {
-        if (!eventEditPending) {
-          addPendingEvent(e);
-        } 
-        else {
-          cancelEventEdit();
-        }
-      }
-
-      if (e.target && e.target.className == 'event') {
-        if (eventEditPending) {
-          cancelEventEdit();
-        }
-        else {
-          updateEvent(e);
-        }
+      switch(e.target.className) {
+      case 'hour-block':
+        eventEditPending ? cancelEventEdit() : addPendingEvent(e);
+        break;
+      case 'event':
+        eventEditPending ? cancelEventEdit() : updateEvent(e);
+        break;
+      default:
+        break;
       }
     });
   };
@@ -545,9 +515,7 @@ const weeklyPlanner = (() => { // eslint-disable-line no-unused-vars
   const renderEvents = () => {
     let events = store.getEvents();
     if (events.length == 0) return;
-    events.forEach(event => {
-      renderEvent(event);
-    });
+    events.forEach(event => renderEvent(event));
   };
 
   /**  Render instance of Event */
@@ -555,11 +523,11 @@ const weeklyPlanner = (() => { // eslint-disable-line no-unused-vars
     const day = event.day;
     const timeFromHour = event.getTimeFromHour(true);
     const selector = `[data-day='${day}'] [data-hour='${timeFromHour}']`;
-    const eventParent = document.querySelector(selector);
+    const eventParent = $(selector);
     const eventEl = document.createElement('div');
     
     eventEl.className = 'event';
-    eventEl.innerHTML = `<p>${event.title}</p>`;
+    eventEl.innerText = event.title;
     eventEl.setAttribute('data-id', event.id);
     eventEl.setAttribute('title', event.title);
     eventEl.style.top = (64 * event.getTimeFromMinute() / 60) + 'px';
@@ -569,7 +537,6 @@ const weeklyPlanner = (() => { // eslint-disable-line no-unused-vars
 
   /**  Run application  */
   const startApp = () => {
-    console.log('starting app...');
     store.loadEvents();
     bindEventListeners();
     render();
