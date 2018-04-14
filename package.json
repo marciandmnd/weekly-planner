@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "eslint": "eslint ./src/js/*",
     "start": "webpack-dev-server --open --mode development",
-    "build": "webpack",
+    "build": "webpack && cp src/index.html dist/index.html",
     "dev": "webpack --mode development"
   },
   "repository": {
