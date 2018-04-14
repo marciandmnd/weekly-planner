@@ -42,9 +42,12 @@ const weeklyPlanner = (() => { // eslint-disable-line no-unused-vars
   const render = () => {
     const week = dates(new Date());
 
-    const theadHTML = week.map(day => {
-      return `<th>${DAYS[day.getDay()]} <br/><span class="day-number">${day.getDate()}</span></th>`;
-    });
+    const theadHTML = week.map(day => (
+      `<th>
+        ${DAYS[day.getDay()]}<br/>
+        <span class="day-number">${day.getDate()}</span>
+      </th>`
+    ));
 
     theadHTML.unshift('<th id="time"></th>');
     weekHeader.innerHTML = theadHTML.join('');
@@ -552,7 +555,7 @@ const weeklyPlanner = (() => { // eslint-disable-line no-unused-vars
     const eventEl = document.createElement('div');
     
     eventEl.className = 'event';
-    eventEl.innerHTML = event.title;
+    eventEl.innerHTML = `<p>${event.title}</p>`;
     eventEl.setAttribute('data-id', event.id);
     eventEl.setAttribute('title', event.title);
     eventEl.style.top = (64 * event.getTimeFromMinute() / 60) + 'px';
