@@ -19,9 +19,11 @@ const weeklyPlanner = (() => {
   const timeFromInput = $('#time-from');
   const timeToInput = $('#time-to');
 
-  let currentTimeFrom; // used for Firefox time input clear button work around
-  let currentEvent; // Current instance of Event being interacted with
-  let currentEventEl; // DOM element representing current Event being interacted with
+  let 
+    currentTimeFrom,  // used for Firefox time input clear button work around
+    currentEventEl,   // DOM element representing current Event being interacted with
+    currentEvent;     // Current instance of Event being interacted with
+
   let eventEditPending = false; 
 
   /**
@@ -63,14 +65,13 @@ const weeklyPlanner = (() => {
    * @returns {string}
    */ 
   const tableCellHTML = () => {
-    const tableCellHTML = new Array();
+    const html = new Array();
 
     for (let i = 0; i < 24; i++) {
-      let hour = i < 10 ? '0' + i : i;
-      tableCellHTML.push(`<div class="hour-block" data-hour="${hour}"></div>`);
+      html.push(`<div class="hour-block" data-hour="${getHourString(i)}"></div>`);
     }
 
-    return tableCellHTML.join('');
+    return html.join('');
   };
 
   /**
