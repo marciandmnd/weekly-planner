@@ -2,7 +2,7 @@
 
 A weekly planner that allows users to manage events during the current week.
 
-[Demo](http://js-weekly-planner.s3-website.us-east-2.amazonaws.com/){:target="_blank"}
+[Demo](http://js-weekly-planner.s3-website.us-east-2.amazonaws.com/) - http://js-weekly-planner.s3-website.us-east-2.amazonaws.com/
 
 ## Getting Started
 
